@@ -11,7 +11,7 @@ public class LoginTest {
     public static LoginPage loginPage;
     public static ProfilePage profilePage;
     public static WebDriver driver;
-
+    public static  EmailPage emailPage;
     /**
      * осуществление первоначальной настройки
      */
@@ -23,6 +23,7 @@ public class LoginTest {
         driver = new ChromeDriver();
         loginPage = new LoginPage(driver);
         profilePage = new ProfilePage(driver);
+        emailPage = new EmailPage(driver);
         //окно разворачивается на полный экран
         driver.manage().window().maximize();
         //задержка на выполнение теста = 10 сек.
@@ -47,6 +48,14 @@ public class LoginTest {
         loginPage.clickLoginBtn();
         //получаем отображаемый логин
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        profilePage.entryMenu();
+        profilePage.emailClick();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        emailPage.clickProfile();
+        emailPage.clickManageAccount();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
         String user = profilePage.getUserName();
         //и сравниваем его с логином из файла настроек
         Assert.assertEquals(ConfProperties.getProperty("login"), user);
