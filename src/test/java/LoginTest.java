@@ -1,11 +1,12 @@
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoginTest {
     public static LoginPage loginPage;
@@ -15,7 +16,7 @@ public class LoginTest {
     /**
      * осуществление первоначальной настройки
      */
-    @BeforeClass
+    @BeforeAll
     public static void setup() {
         //определение пути до драйвера и его настройка
         System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
@@ -58,12 +59,12 @@ public class LoginTest {
 
         String user = profilePage.getUserName();
         //и сравниваем его с логином из файла настроек
-        Assert.assertEquals(ConfProperties.getProperty("login"), user);
+        assertEquals(ConfProperties.getProperty("login"), user);
     }
     /**
      * осуществление выхода из аккаунта с последующим закрытием окна браузера
      */
-    @AfterClass
+    @AfterAll
     public static void tearDown() {
         profilePage.entryMenu();
         profilePage.userLogout();
